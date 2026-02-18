@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ganchos Regulatórios · Antifraude & PLD Brasil</title>
+<meta name="description" content="Mapeamento regulatório interativo: artigos e exigências das principais normas brasileiras de antifraude e PLD/CFT para Instituições Financeiras, IPs, BaaS, VASPs e Bets. Atualizado nov/2025.">
+<meta name="robots" content="noindex, nofollow">
+<!-- Open Graph (Notion, Slack, WhatsApp, LinkedIn) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ganchos Regulatórios · Antifraude & PLD Brasil">
+<meta property="og:description" content="Normas de antifraude e PLD/CFT por segmento: IFs, IPs, BaaS, VASPs e Bets. Artigos-gancho e pitches comerciais prontos. Atualizado com Res. Conjunta 16/2025 e Res. BCB 519–521/2025.">
+<meta property="og:image" content="https://placehold.co/1200x630/402b99/FFC031?text=Ganchos+Regulatórios+%7C+Antifraude+%26+PLD+Brasil&font=sora">
+<meta name="twitter:card" content="summary_large_image">
+<!-- Favicon inline SVG (sem arquivo externo) -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23402b99'/><text y='.9em' font-size='72' x='10'>⚖️</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── Print styles ── */
+@media print {
+  body { background: #fff !important; color: #111 !important; }
+  .filters, .filter-btn, footer { display: none !important; }
+  .norm-card { break-inside: avoid; border: 1px solid #ccc !important; background: #f9f9f9 !important; }
+  .card-details { display: block !important; }
+  .segment { break-before: auto; }
+}
+</style>
+<style>
+  :root {
+    --bg:        #402b99;
+    --bg-deep:   #2d1e73;
+    --bg-card:   #4e38a8;
+    --bg-card2:  #5a42b8;
+    --border:    rgba(255,192,49,0.18);
+    --border-hi: rgba(255,192,49,0.55);
+    --gold:      #FFC031;
+    --gold-dim:  rgba(255,192,49,0.55);
+    --gold-soft: rgba(255,192,49,0.12);
+    --white:     #ffffff;
+    --text:      #ede9ff;
+    --text-mid:  rgba(237,233,255,0.7);
+    --text-dim:  rgba(237,233,255,0.4);
+    --fraud:     #FFC031;
+    --pld:       #c4b5fd;
+    --both-grad: linear-gradient(90deg, #FFC031, #c4b5fd);
+    --danger:    #fca5a5;
+    --new-badge: #34d399;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Sora', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: radial-gradient(ellipse 90% 55% at 50% -5%, rgba(255,192,49,0.10) 0%, transparent 55%),
+                radial-gradient(ellipse 60% 40% at 90% 80%, rgba(255,192,49,0.05) 0%, transparent 50%);
+    pointer-events: none; z-index: 0;
+  }
+  .container { position: relative; z-index: 1; max-width: 1380px; margin: 0 auto; padding: 48px 24px 100px; }
+
+  /* HEADER */
+  header { margin-bottom: 44px; }
+  .eyebrow {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 14px;
+  }
+  h1 { font-size: clamp(28px, 4.2vw, 54px); font-weight: 800; line-height: 1.06; color: var(--white); margin-bottom: 16px; }
+  h1 em { color: var(--gold); font-style: normal; }
+  .subtitle { font-size: 13.5px; font-weight: 300; color: var(--text-mid); max-width: 660px; line-height: 1.75; }
+
+  /* STATS */
+  .stats-bar {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 1px; background: var(--border); border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden; margin: 36px 0;
+  }
+  .stat-cell { background: var(--bg-card); padding: 18px 16px; text-align: center; transition: background .2s; }
+  .stat-cell:hover { background: var(--bg-card2); }
+  .stat-num { font-size: 30px; font-weight: 800; color: var(--gold); line-height: 1; margin-bottom: 5px; }
+  .stat-label { font-size: 10px; font-weight: 500; color: var(--text-dim); letter-spacing: .1em; text-transform: uppercase; }
+
+  /* LEGEND */
+  .legend { display: flex; gap: 20px; margin-bottom: 28px; flex-wrap: wrap; align-items: center; }
+  .legend-item { display: flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 500; color: var(--text-mid); }
+  .legend-dot { width: 9px; height: 9px; border-radius: 3px; flex-shrink: 0; }
+  .legend-hint { margin-left: auto; font-size: 11px; font-weight: 300; color: var(--text-dim); }
+
+  /* FILTERS */
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
+  .filter-btn {
+    background: var(--bg-card); border: 1px solid var(--border);
+    color: var(--text-mid); padding: 7px 16px; border-radius: 100px;
+    font-size: 11px; font-family: 'Sora', sans-serif; font-weight: 500;
+    cursor: pointer; transition: all .2s; letter-spacing: .03em;
+  }
+  .filter-btn:hover { border-color: var(--gold-dim); color: var(--gold); background: var(--gold-soft); }
+  .filter-btn.active { border-color: var(--gold); color: var(--bg-deep); background: var(--gold); font-weight: 700; }
+
+  /* SEGMENT */
+  .segment { margin-bottom: 52px; animation: fadeUp .4s ease both; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+  .segment-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .segment-icon {
+    width: 46px; height: 46px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+    background: rgba(255,192,49,0.12); border: 1px solid rgba(255,192,49,0.2);
+  }
+  .segment-title { font-size: 19px; font-weight: 700; color: var(--white); }
+  .segment-desc { font-size: 11px; font-weight: 300; color: var(--text-dim); margin-top: 3px; }
+
+  /* CARDS */
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; }
+  .norm-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px; cursor: pointer;
+    transition: all .25s; position: relative; overflow: hidden;
+  }
+  .norm-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    opacity: 0; transition: opacity .25s;
+  }
+  .norm-card:hover { border-color: var(--border-hi); transform: translateY(-2px); background: var(--bg-card2); }
+  .norm-card:hover::before, .norm-card.expanded::before { opacity: 1; }
+  .norm-card.type-fraud::before  { background: var(--fraud); }
+  .norm-card.type-pld::before    { background: var(--pld); }
+  .norm-card.type-both::before   { background: var(--both-grad); }
+  .norm-card.expanded { border-color: var(--border-hi); background: var(--bg-card2); }
+
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; gap: 8px; }
+  .card-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .norm-label {
+    font-size: 9px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 5px; white-space: nowrap;
+  }
+  .l-fraud { background: rgba(255,192,49,.15); color: var(--gold); }
+  .l-pld   { background: rgba(196,181,253,.15); color: var(--pld); }
+
+  .new-badge {
+    font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 5px;
+    background: rgba(52,211,153,.15); color: var(--new-badge);
+    border: 1px solid rgba(52,211,153,.3); white-space: nowrap;
+    animation: pulse-new 2.5s ease-in-out infinite;
+  }
+  @keyframes pulse-new {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(52,211,153,.3); }
+    50% { box-shadow: 0 0 0 5px rgba(52,211,153,0); }
+  }
+
+  .expand-icon { color: var(--gold-dim); font-size: 18px; transition: transform .25s; flex-shrink:0; margin-top:1px; font-weight: 300; }
+  .expanded .expand-icon { transform: rotate(45deg); color: var(--gold); }
+
+  .norm-name { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 3px; line-height: 1.35; }
+  .norm-source { font-size: 10px; font-weight: 400; color: var(--text-dim); margin-bottom: 10px; }
+  .norm-summary { font-size: 12px; font-weight: 300; color: var(--text-mid); line-height: 1.65; }
+
+  /* EXPANDED */
+  .card-details { display: none; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .expanded .card-details { display: block; }
+  .detail-section { margin-bottom: 14px; }
+  .detail-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .15em; color: var(--text-dim); margin-bottom: 7px; }
+  .artigos-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .artigo-tag {
+    font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 6px;
+    border: 1px solid var(--border); color: var(--text-mid);
+    background: rgba(255,255,255,.04); cursor: default; transition: all .15s;
+  }
+  .artigo-tag:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+  .pitch-box {
+    background: rgba(255,192,49,.06); border: 1px solid rgba(255,192,49,.2);
+    border-radius: 10px; padding: 14px;
+    font-size: 12px; font-weight: 300; color: var(--text-mid); line-height: 1.75;
+  }
+  .pitch-box strong { color: var(--gold); font-weight: 600; }
+
+  .penalidade-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 500; color: var(--danger);
+    background: rgba(252,165,165,.08); border: 1px solid rgba(252,165,165,.2);
+    border-radius: 7px; padding: 5px 12px;
+  }
+  .vigencia-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 500; color: var(--new-badge);
+    background: rgba(52,211,153,.08); border: 1px solid rgba(52,211,153,.2);
+    border-radius: 7px; padding: 5px 12px;
+  }
+
+  /* DIVIDER */
+  .section-divider { display: flex; align-items: center; gap: 14px; margin: 8px 0 20px; }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-label {
+    font-size: 10px; font-weight: 600; color: var(--gold); letter-spacing: .15em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 100px;
+    background: rgba(255,192,49,.1); border: 1px solid rgba(255,192,49,.25);
+  }
+
+  /* FOOTER */
+  footer {
+    margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    font-size: 10px; font-weight: 400; color: var(--text-dim); letter-spacing: .04em;
+  }
+  .hidden { display: none !important; }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg-deep);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; flex-wrap: wrap;
+  }
+  .topbar-brand {
+    font-size: 11px; font-weight: 600; color: var(--gold);
+    letter-spacing: 0.15em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .topbar-brand span { color: var(--text-dim); font-weight: 300; }
+  .topbar-actions { display: flex; gap: 8px; }
+  .btn-share {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--gold-soft); border: 1px solid var(--gold-dim);
+    color: var(--gold); padding: 6px 14px; border-radius: 100px;
+    font-size: 11px; font-weight: 600; font-family: 'Sora', sans-serif;
+    cursor: pointer; transition: all .2s; letter-spacing: .03em;
+  }
+  .btn-share:hover { background: var(--gold); color: var(--bg-deep); }
+  .btn-print {
+    display: flex; align-items: center; gap: 6px;
+    background: transparent; border: 1px solid var(--border);
+    color: var(--text-dim); padding: 6px 14px; border-radius: 100px;
+    font-size: 11px; font-weight: 500; font-family: 'Sora', sans-serif;
+    cursor: pointer; transition: all .2s;
+  }
+  .btn-print:hover { border-color: var(--text-mid); color: var(--text); }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(80px);
+    background: var(--new-badge); color: #0d3f2c;
+    font-size: 12px; font-weight: 600; padding: 10px 20px; border-radius: 100px;
+    transition: transform .3s cubic-bezier(.34,1.56,.64,1), opacity .3s;
+    opacity: 0; pointer-events: none; white-space: nowrap; z-index: 999;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+  /* ── NOTION TIP ── */
+  .notion-tip {
+    background: rgba(255,192,49,0.07);
+    border: 1px solid rgba(255,192,49,0.2);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 12px; font-weight: 300; color: var(--text-mid);
+    margin-bottom: 32px; line-height: 1.6;
+    display: flex; align-items: flex-start; gap: 10px;
+  }
+  .notion-tip strong { color: var(--gold); font-weight: 600; }
+  .notion-tip .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-brand">
+    ⚖️ Ganchos Regulatórios &nbsp;<span>Antifraude & PLD · Brasil · Nov/2025</span>
+  </div>
+  <div class="topbar-actions">
+    <button class="btn-print" onclick="window.print()">🖨 Imprimir / PDF</button>
+    <button class="btn-share" onclick="copyLink()">🔗 Copiar link</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✓ Link copiado!</div>
+
+<div class="container">
+
+  <!-- NOTION TIP (só aparece se acessado de iframe) -->
+  <div class="notion-tip" id="notionTip" style="display:none">
+    <span class="tip-icon">💡</span>
+    <div>
+      <strong>Dica Notion:</strong> Você está vendo este painel incorporado. Para melhor experiência, abra em tela cheia clicando em <strong>"Abrir"</strong> no canto do embed. Use os filtros acima para navegar por segmento ou tema.
+    </div>
+  </div>
+
+  <header>
+    <div class="eyebrow">// Mapeamento Regulatório · Brasil · Atualizado Nov–Dez 2025</div>
+    <h1>Ganchos Regulatórios<br><em>Antifraude & PLD</em></h1>
+    <p class="subtitle">Artigos e exigências das principais normas brasileiras aplicáveis à prevenção a fraudes e lavagem de dinheiro — organizados por modelo de negócio para uso como argumento comercial. Inclui as normas mais recentes de <strong style="color:var(--new-badge)">BaaS (Res. Conjunta 16/2025)</strong> e <strong style="color:var(--new-badge)">SPSAVs (Res. BCB 519, 520 e 521/2025)</strong>.</p>
+  </header>
+
+  <div class="stats-bar">
+    <div class="stat-cell"><div class="stat-num">5</div><div class="stat-label">Segmentos</div></div>
+    <div class="stat-cell"><div class="stat-num">20+</div><div class="stat-label">Normas</div></div>
+    <div class="stat-cell"><div class="stat-num">65+</div><div class="stat-label">Artigos-gancho</div></div>
+    <div class="stat-cell"><div class="stat-num">3</div><div class="stat-label">Reguladores</div></div>
+    <div class="stat-cell"><div class="stat-num" style="font-size:17px;padding-top:6px">Nov/25</div><div class="stat-label">Última atualização</div></div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--fraud)"></div>Antifraude</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--pld)"></div>PLD/CFT</div>
+    <div class="legend-item"><div class="legend-dot" style="background:linear-gradient(90deg,var(--fraud),var(--pld))"></div>Ambos</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--new-badge)"></div>Norma nova (2025)</div>
+    <span class="legend-hint">↓ Clique em qualquer card para artigos e pitch comercial</span>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterAll(this)">Todos</button>
+    <button class="filter-btn" onclick="filterSeg('if',this)">🏦 Inst. Financeiras</button>
+    <button class="filter-btn" onclick="filterSeg('ip',this)">💳 Inst. de Pagamento</button>
+    <button class="filter-btn" onclick="filterSeg('baas',this)">☁️ BaaS</button>
+    <button class="filter-btn" onclick="filterSeg('vasp',this)">₿ VASPs / SPSAVs</button>
+    <button class="filter-btn" onclick="filterSeg('bet',this)">🎲 Bets</button>
+    <button class="filter-btn" onclick="filterType('fraud',this)">🟡 Só Antifraude</button>
+    <button class="filter-btn" onclick="filterType('pld',this)">🟣 Só PLD</button>
+  </div>
+
+  <!-- ═══ INSTITUIÇÕES FINANCEIRAS ═══ -->
+  <div class="segment" data-seg="if">
+    <div class="segment-header">
+      <div class="segment-icon">🏦</div>
+      <div><div class="segment-title">Instituições Financeiras</div><div class="segment-desc">Bancos, financeiras, cooperativas de crédito, SCDs, SEPs — autorizadas pelo Bacen</div></div>
+    </div>
+    <div class="cards-grid">
+
+      <div class="norm-card type-both" onclick="toggleCard(this)">
+        <div class="card-top"><div class="card-badges"><span class="norm-label l-fraud">Antifraude</span><span class="norm-label l-pld">PLD</span></div><span class="expand-icon">+</span></div>
+        <div class="norm-name">Resolução BCB nº 6/2021</div>
+        <div class="norm-source">Bacen · Política de Segurança Cibernética</div>
+        <div class="norm-summary">Exige política formal de segurança cibernética, gestão de riscos e plano de continuidade para todas as IFs autorizadas.</div>
+        <div class="card-details">
+          <div class="detail-section"><div class="detail-label">Artigos-gancho</div><div class="artigos-list"><span class="artigo-tag">Art. 4º — Política de SI</span><span class="artigo-tag">Art. 5º — Cenários de incidentes</span><span class="artigo-tag">Art. 6º — Plano de resposta</span><span class="artigo-tag">Art. 13 — Prestadores terceiros</span></div></div>
+          <div class="detail-section"><div class="detail-label">Pitch Comercial</div><div class="pitch-box"><strong>Argumento:</strong> "O Art. 4º exige que sua IF tenha uma política de segurança cibernética contemplando detecção e resposta a fraudes. Nossa plataforma entrega os controles técnicos necessários para comprovar conformidade ao Bacen."</div></div>
+          <div class="detail-section"><div class="detail-label">Penalidade</div><span class="penalidade-badge">⚠ Multa + inabilitação de dirigentes (Lei 13.506/17)</span></div>
+        </div>
+      </div>
+
+      <div class="norm-card type-pld" onclick="toggleCard(this)">
+        <div class="card-top"><div class="card-badges"><span class="norm-label l-pld">PLD/CFT</span></div><span class="expand-icon">+</span></div>
+        <div class="norm-name">Circular BCB nº 3.978/2020</div>
+        <div class="norm-source">Bacen · PLD/CFT para Instituições Financeiras</div>
+        <div class="norm-summary">Principal norma PLD do Bacen. Exige programa interno, KYC, monitoramento transacional, comunicação ao COAF e registros por 10 anos.</div>
+        <div class="card-details">
+          <div class="detail-section"><div class="detail-label">Artigos-gancho</div><div class="artigos-list"><span class="artigo-tag">Art. 3º — Programa PLD/CFT</span><span class="artigo-tag">Art. 23 — Monitoramento de operações</span><span class="artigo-tag">Art. 27 — Comunicação ao COAF</span><span class="artigo-tag">Art. 37 — Preservação de registros</span><span class="artigo-tag">Art. 43 — Avaliação interna de risco</span></div></div>
+          <div class="detail-section"><div class="detail-label">Pitch Comercial</div><div class="pitch-box"><strong>Argumento:</strong> "O Art. 23 exige monitoramento sistemático com parâmetros definidos pela própria IF. Nossa solução é parametrizável e gera alertas auditáveis para o COAF, cumprindo o Art. 27."</div></div>
+          <div class="detail-section"><div class="detail-label">Penalidade</div><span class="penalidade-badge">⚠ Multa até 20% do faturamento + Lei 9.613/98</span></div>
+        </div>
+      </div>
+
+      <div class="norm-card type-fraud" onclick="toggleCard(this)">
+        <div class="card-top"><div class="card-badges"><span class="norm-label l-fraud">Antifraude</span></div><span class="expand-icon">+</span></div>
+        <div class="norm-name">Resolução BCB nº 142/2021</div>
+        <div class="norm-source">Bacen · Mecanismo Especial de Devolução (MED) — Pix</div>
+        <div class="norm-summary">Cria o MED para casos de fraude no Pix. IFs devem detectar fraudes e bloquear valores em janelas de horas.</div>
+        <div class="card-details">
+          <div class="detail-section"><div class="detail-label">Artigos-gancho</div><div class="artigos-list"><span class="artigo-tag">Art. 4º — Detecção de indícios</span><span class="artigo-tag">Art. 7º — Bloqueio cautelar</span><span class="artigo-tag">Art. 12 — Prazo de resposta</span><span class="artigo-tag">Art. 15 — Responsabilidade da IF</span></div></div>
+          <div class="detail-section"><div class="detail-label">Pitch Comercial</div><div class="pitch-box"><strong>Argumento:</strong> "O MED (Art. 7º) impõe bloqueio cautelar em menos de 24h. Nossa engine detecta padrões de fraude no Pix em tempo real e aciona o bloqueio automaticamente, reduzindo exposição ao ressarcimento."</div></div>
+          <div class="detail-section"><div class="detail-label">Penalidade</div><span class="penalidade-badge">⚠ Ressarcimento integral + multa do Bacen</span></div>
+        </div>
+      </div>
+
+      <div class="norm-card type-both" onclick="toggleCard(this)">
+        <div class="card-top"><div class="card-badges"><span class="norm-label l-fraud">Antifraude</span><span class="norm-label l-pld">PLD</span></div><span class="expand-icon">+</span></div>
+        <div class="norm-name">Resolução CMN nº 4.893/2021</div>
+        <div class="norm-source">Bacen · Segurança Cibernética para Bancos</div>
+        <div class="norm-summary">Impõe testes de intrusão, monitoramento contínuo e relatório anual ao Conselho de Administração.</div>
+        <div class="card-details">
+          <div class="detail-section"><div class="detail-label">Artigos-gancho</div><div class="artigos-list"><span class="artigo-tag">Art. 3º — Testes de penetração</span><span class="artigo-tag">Art. 7º — Monitoramento contínuo</span><span class="artigo-tag">Art. 10 — Relatório ao Conselho</span></div></div>
+          <div class="detail-section"><div class="detail-label">Pitch Comercial</div><div class="pitch-box"><strong>Argumento:</strong> "O Art. 7º exige monitoramento contínuo. Nosso motor de detecção em tempo real cobre esse requisito com logs auditáveis prontos para o relatório anual ao Conselho (Art. 10)."</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ INSTITUIÇÕES DE PAGAMENTO ═══ -->
+  <div class="segment" data-seg="ip">
+    <div class="segment-header">
+      <div class="segment-icon">💳</div>
+      <div><div class="segment-title">Instituições de Pagamento</div><div class="segment-desc">Emissoras de e-money, adquirentes, credenciadoras — autorizadas pelo Bacen</div></div>
+    </div>
+    <div class="cards-grid">
+
+      <div class="norm-card type-both" onclick="toggleCard(this)">
+        <div class="card-top"><div class="card-badges"><span class="norm-label l-fraud">Antifraude</span><span class="norm-label l-pld">PLD</span></div><span class="expand-icon">+</span></div>
+        <div class="norm-name">Resolução BCB nº 80/2021</div>
+        <div class="norm-source">Bacen · PLD/CFT para Instituições de Pagamento</div>
+        <div class="norm-summary">Estende as obrigações PLD da Circ. 3.978 às IPs. Exige governança, monitoramento transacional e reporte ao COAF.</div>
+        <div class="card-details">
+          <div class="detail-section"><div class="detail-label">Artigos-gancho</div><div class="artigos-list"><span class="artigo-tag">Art. 2º — Obrigatoriedade PLD</span><span class="artigo-tag">Art. 5º — Monitoramento transacional</span><span class="artigo-tag">Art. 8º — Comunicação ao COAF</span><span class="artigo-tag">Art. 11 — KYC de clientes</span></div></div>
+          <div class="detail-section"><div class="detail-label">Pitch Comercial</div><div class="pitch-box"><strong>Argumento:</strong> "A Res. 80 torna as IPs tão responsáveis quanto bancos em PLD. Nosso módulo de monitoramento transacional já está mapeado para os requisitos do Art. 5º — com dashboards prontos para auditoria do Bacen."</div></div>
+        </div>
+      </div>
+
+      <div class="norm-card type-fraud" onclick="toggleCard(this)">
+        <div class="card-top"><div class="card-badges"><span class="norm-label l-fraud">Antifraude</span></div><span class="expand-icon">+</span></div>
+        <div class="norm-name">Resolução BCB nº 403/2023</div>
+        <div class="norm-source">Bacen · Prevenção a Fraudes no Pix</div>
+        <div class="norm-summary">Exige marcação de infratores na base DICT, limitação de transações noturnas e análise de risco pré-transação.</div>
+        <div class="card-details">
+          <div class="detail-section"><div class="detail-label">Artigos-gancho</div><div class="artigos-list"><span class="artigo-tag">Art. 3º — Limite noturno Pix</span><span class="artigo-tag">Art. 6º — Marcação DICT</span><span class="artigo-tag">Art. 9º — Análise de risco prévia</span><span class="artigo-tag">Art. 12 — Autenticação reforçada</span></div></div>
+          <div class="detail-section"><div class="detail-label">Pitch Comercial</div><div class="pitch-box"><strong>Argumento:</strong> "O Art. 9º exige análise de risco antes de cada transação Pix. Nossa solução faz score em menos de 50ms — e já integra com o DICT para consulta de infratores (Art. 6º)."</div></div>
+          <div class="detail-section"><div class="detail-label">Penalidade</div><span class="penalidade-badge">⚠ Suspensão do Pix + multa</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ BaaS ═══ -->
+  <div class="segment" data-seg="baas">
+    <div class="segment-header">
+      <div class="segment-icon">☁️</div>
+      <div><div class="segment-title">BaaS — Banking as a Service</div><div class="segment-desc">Plataformas que oferecem infraestrutura bancária/de pagamentos a terceiros (embedded finance)</div></div>
+    </div>
+
+    <div class="section-divider"><div class="divider-line"></div><span class="divider-label">✦ Novo marco regulatório — Nov 2025</span><div class="divider-line"></div></div>
+
+    <div class="cards-grid">
+
+      <div class="norm-card type-both" onclick="toggleCard(this)">
+        <div class="card-top">
+          <div class="card-badges"><span class="norm-label l-fraud">Antifraude</span><span class="norm-label l-pld">PLD</span><span class="new-badge">✦ Nova</span></div>
+          <span class="expand-icon">+</span>
+        </div>
+        <div class="norm-name">Resolução Conjunta BCB/CMN nº 16/2025</div>
+        <div class="norm-source">BCB + CMN · Primeiro Marco Regulatório de BaaS · 28/11/2025</div>
+        <div class="norm-summary">Define prestadora e tomadora de BaaS, responsabilidades integrais da prestadora sobre PLD/FT e antifraude, governança, vedação de contas-bolsão e individualização de contas. Prazo de adequação: 31/12/2026.</div>
+        <div class="card-details">
+          <div class="detail-section"><div class="detail-label">Artigos-gancho</div><div class="artigos-list">
+            <span class="artigo-tag">Art. 3º — Definição de prestadora e tomadora</span>
+            <span class="artigo-tag">Art. 4º — Escopo de serviços BaaS</span>
+            <span class="artigo-tag">Art. 7º — Responsabilidade integral da prestadora</span>
+            <span class="artigo-tag">Art. 8º — PLD/FT e antifraude: dever da prestadora</span>
+            <span class="artigo-tag">Art. 10 — Monitoramento contínuo da tomadora</span>
+            <span class="artigo-tag">Art. 12 — Vedação de contas-bolsão</span>
+            <span class="artigo-tag">Art. 14 — Individualização de contas por cliente</span>
+            <span class="artigo-tag">Art. 16 — Registros: 5 anos (contratos) / 10 anos (controles)</span>
+            <span class="artigo-tag">Art. 19 — Poder do BCB de vetar/suspender contratos BaaS</span>
+          </div></div>
+          <div class="detail-section"><div class="detail-label">Pitch Comercial</div><div class="pitch-box">
+            <strong>Argumento de responsabilidade:</strong> "A Res. 16/2025 deixou claro: a prestadora de BaaS é responsável direta e integral por PLD/FT e antifraude, mesmo que a interface seja da tomadora (Art. 7º e 8º). Sua instituição precisa de controles que acompanhem toda a cadeia — e nossa solução foi projetada para esse modelo multi-tomador."<br><br>
+            <strong>Argumento de urgência:</strong> "O prazo é 31/12/2026. Quem não adequar contratos e sistemas pode ter o contrato de BaaS suspenso pelo Bacen (Art. 19) — e perder toda a receita do portfólio de parceiros."<br><br>
+            <strong>Argumento de contas-bolsão:</strong> "O Art. 12 veda definitivamente as contas-bolsão — associadas a esquemas criminosos (Operações Carbono Oculto e Poço de Lobato). O Art. 14 exige individualização de contas por cliente, o que requer rastreabilidade transacional completa. Nossa plataforma entrega isso nativamente."
+          </div></div>
+          <div class="detail-section"><div class="detail-label">Vigência e prazos</div><div style="display:flex;gap:8px;flex-wrap:wrap">
+            <span class="vigencia-badge">✦ Vigência: imediata (28/11/2025)</span>
+            <span class="penalidade-badge">⚠ Adequação: até 31/12/2026</span>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="norm-card type-both" onclick="toggleCard(this)">
+        <div class="card-top"><div class="card-badges"><span class="norm-label l-fraud">Antifraude</span><span class="norm-label l-pld">PLD</span></div><span class="expand-icon">+</span></div>
+        <div class="norm-name">Circular BCB nº 3.978/2020</div>
+        <div class="norm-source">Bacen · PLD/CFT — Extensão ao modelo BaaS</div>
+        <div class="norm-summary">Combinada à Res. 16/2025, confirma que a prestadora de BaaS é a responsável PLD por toda a cadeia de clientes — inclusive os atendidos via tomadora.</div>
+        <div class="card-details">
+          <div class="detail-section"><div class="detail-label">Artigos-gancho</div><div class="artigos-list"><span class="artigo-tag">Art. 3º — Extensão a parceiros</span><span class="artigo-tag">Art. 5º — Due diligence de correspondentes</span><span class="artigo-tag">Art. 23 — Monitoramento da cadeia</span></div></div>
+          <div class="detail-section"><div class="detail-label">Pitch Comercial</div><div class="pitch-box"><strong>Argumento:</strong> "A Res. 16/2025 reforçou o que a Circ. 3.978 já previa: a IF monitora todos os clientes, inclusive os captados por parceiros. Nossa solução multi-tenant entrega visibilidade centralizada de todas as transações — independente de qual tomadora originou a operação."</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ VASPs / SPSAVs ═══ -->
+  <div class="segment" data-seg="vasp">
+    <div class="segment-header">
+      <div class="segment-icon">₿</div>
+      <div><div class="segment-title">VASPs / SPSAVs — Ativos Virtuais</div><div class="segment-desc">Sociedades Prestadoras de Serviços de Ativos Virtuais (exchanges, custodiantes, intermediárias) — reguladas pelo Bacen</div></div>
+    </div>
+
+    <div class="section-divider"><div class="divider-line"></div><span class="divider-label">✦ Novo tripé normativo — Nov 2025</span><div class="divider-line"></div></div>
+
+    <div class="cards-grid">
+
+      <div class="norm-card type-both" onclick="toggleCard(this)">
+        <div class="card-top">
+          <div class="card-badges"><span class="norm-label l-fraud">Antifraude</span><span class="norm-label l-pld">PLD</span><span class="new-badge">✦ Nova</span></div>
+          <span class="expand-icon">+</span>
+        </div>
+        <div class="norm-name">Resolução BCB nº 519/2025</div>
+        <div class="norm-source">Bacen · Autorização de Funcionamento de SPSAVs · 10/11/2025</div>
+        <div class="norm-summary">Disciplina o processo de autorização das SPSAVs (ex-VASPs). PLD, antifraude e segurança cibernética são requisitos formais para obter e manter a licença. Capital mínimo: R$10,8mi–R$37,2mi.</div>
+        <div class="card-details">
+          <div class="detail-section"><div class="detail-label">Artigos-gancho</div><div class="artigos-list">
+            <span class="artigo-tag">Art. 3º — Autorização obrigatória Bacen</span>
+            <span class="artigo-tag">Art. 5º — Capital mínimo proporcional</span>
+            <span class="artigo-tag">Art. 11 — Política de seg. cibernética como requisito</span>
+            <span class="artigo-tag">Art. 13 — PLD/FT como requisito para autorização</span>
+            <span class="artigo-tag">Art. 88 — Prazo para VASPs existentes: até out/2026</span>
+          </div></div>
+          <div class="detail-section"><div class="detail-label">Pitch Comercial</div><div class="pitch-box">
+            <strong>Argumento:</strong> "O Art. 13 torna PLD e controles antifraude requisito formal para obter a autorização do Bacen — não é mais opcional. Quem operar sem autorização após outubro de 2026 está fora do mercado. Nossa solução acelera a adequação e documenta os controles para o processo de licenciamento."<br><br>
+            <strong>Urgência:</strong> "VASPs que já operam têm até outubro de 2026 para protocolar o pedido (Art. 88). O processo exige evidências de controles já implementados — cada mês de atraso reduz o prazo de ajuste."
+          </div></div>
+          <div class="detail-section"><div class="detail-label">Vigência</div><span class="vigencia-badge">✦ Vigência: 2 de fevereiro de 2026</span></div>
+          <div class="detail-section"><div class="detail-label">Penalidade</div><span class="penalidade-badge">⚠ Operação ilegal após out/2026 · cassação</span></div>
+        </div>
+      </div>
+
+      <div class="norm-card type-both" onclick="toggleCard(this)">
+        <div class="card-top">
+          <div class="card-badges"><span class="norm-label l-fraud">Antifraude</span><span class="norm-label l-pld">PLD</span><span class="new-badge">✦ Nova</span></div>
+          <span class="expand-icon">+</span>
+        </div>
+        <div class="norm-name">Resolução BCB nº 520/2025</div>
+        <div class="norm-source">Bacen · Constituição e Funcionamento das SPSAVs · 10/11/2025</div>
+        <div class="norm-summary">Principal norma operacional das SPSAVs. Classifica três modalidades (intermediária, custodiante, corretora), impõe segregação patrimonial, Travel Rule, PLD/FTP, segurança cibernética e política de antifraude como obrigações permanentes.</div>
+        <div class="card-details">
+          <div class="detail-section"><div class="detail-label">Artigos-gancho</div><div class="artigos-list">
+            <span class="artigo-tag">Art. 4º — Três modalidades de SPSAV</span>
+            <span class="artigo-tag">Art. 20 — Bancos e corretoras também podem atuar</span>
+            <span class="artigo-tag">Art. 25 — Segregação patrimonial obrigatória</span>
+            <span class="artigo-tag">Art. 30 — Política de PLD/FTP obrigatória</span>
+            <span class="artigo-tag">Art. 33 — Monitoramento on-chain e KYC</span>
+            <span class="artigo-tag">Art. 36 — Travel Rule: dados do originador</span>
+            <span class="artigo-tag">Art. 40 — Política de antifraude e coibição de crimes</span>
+            <span class="artigo-tag">Art. 45 — Segurança cibernética e plano de resposta</span>
+            <span class="artigo-tag">Art. 50 — Registros auditáveis por 5 anos</span>
+          </div></div>
+          <div class="detail-section"><div class="detail-label">Pitch Comercial</div><div class="pitch-box">
+            <strong>Argumento PLD + Travel Rule:</strong> "O Art. 30 exige política de PLD/FTP permanente, e o Art. 36 incorpora o Travel Rule do GAFI — SPSAVs devem transmitir dados do originador em transferências. Nossa solução integra análise on-chain + KYC + Travel Rule num único fluxo."<br><br>
+            <strong>Argumento antifraude:</strong> "O Art. 40 impõe política específica de coibição a fraudes — não basta ter PLD. Nossa plataforma entrega os dois controles com evidências auditáveis (Art. 50)."<br><br>
+            <strong>Argumento de nível bancário:</strong> "A Res. 520 eleva o cripto ao 'nível banco'. SPSAVs têm as mesmas exigências de segurança cibernética que IFs (Art. 45). Quem não investir em controles equivalentes não passa pela supervisão do Bacen."
+          </div></div>
+          <div class="detail-section"><div class="detail-label">Vigência</div><span class="vigencia-badge">✦ Vigência: 2 de fevereiro de 2026</span></div>
+        </div>
+      </div>
+
+      <div class="norm-card type-pld" onclick="toggleCard(this)">
+        <div class="card-top">
+          <div class="card-badges"><span class="norm-label l-pld">PLD/CFT</span><span class="new-badge">✦ Nova</span></div>
+          <span class="expand-icon">+</span>
+        </div>
+        <div class="norm-name">Resolução BCB nº 521/2025</div>
+        <div class="norm-source">Bacen · SPSAVs e Mercado de Câmbio · 10/11/2025</div>
+        <div class="norm-summary">Integra ativos virtuais ao mercado de câmbio. Pagamentos internacionais, stablecoins e transferências passam a ter rastreabilidade e Travel Rule como exigências cambiais concretas.</div>
+        <div class="card-details">
+          <div class="detail-section"><div class="detail-label">Artigos-gancho</div><div class="artigos-list">
+            <span class="artigo-tag">Art. 2º — Operações cambiais com criptoativos</span>
+            <span class="artigo-tag">Art. 4º — Pagamentos internacionais: rastreabilidade</span>
+            <span class="artigo-tag">Art. 6º — Stablecoins no mercado de câmbio</span>
+            <span class="artigo-tag">Art. 8º — Carteiras não-custodiais: identificação obrigatória</span>
+            <span class="artigo-tag">Art. 10 — Reporte mensal obrigatório ao Bacen</span>
+            <span class="artigo-tag">Art. 12 — Limite US$100k p/ SPSAVs sem parceiro cambial</span>
+          </div></div>
+          <div class="detail-section"><div class="detail-label">Pitch Comercial</div><div class="pitch-box">
+            <strong>Argumento Travel Rule cambial:</strong> "A Res. 521 traz a Travel Rule para o câmbio brasileiro. O Art. 8º exige identificação do titular de carteiras não-custodiais — o ponto de maior risco de lavagem no cripto. Nossa solução de KYC on-chain e monitoramento de carteiras atende exatamente esse requisito."<br><br>
+            <strong>Argumento de reporte:</strong> "A partir de maio/2026, o Bacen passa a receber informações mensais de todas as operações cambiais com criptoativos (Art. 10). Sua SPSAV precisa de um sistema que gere esses relatórios automaticamente."
+          </div></div>
+          <div class="detail-section"><div class="detail-label">Vigência (faseada)</div><div style="display:flex;gap:8px;flex-wrap:wrap">
+            <span class="vigencia-badge">✦ Vigência geral: 2/fev/2026</span>
+            <span class="vigencia-badge">✦ Reporte cambial: 4/mai/2026</span>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="norm-card type-pld" onclick="toggleCard(this)">
+        <div class="card-top"><div class="card-badges"><span class="norm-label l-pld">PLD/CFT</span></div><span class="expand-icon">+</span></div>
+        <div class="norm-name">Lei nº 14.478/2022</div>
+        <div class="norm-source">Federal · Marco Legal dos Criptoativos — Base das Res. 519–521</div>
+        <div class="norm-summary">Lei base do ecossistema cripto. Criou a figura da SPSAV regulada pelo Bacen, com obrigações PLD equiparadas às IFs. As Res. 519, 520 e 521 de nov/2025 regulamentam esta lei.</div>
+        <div class="card-details">
+          <div class="detail-section"><div class="detail-label">Artigos-gancho</div><div class="artigos-list"><span class="artigo-tag">Art. 2º — Definição de VASP/SPSAV</span><span class="artigo-tag">Art. 7º — Obrigações PLD</span><span class="artigo-tag">Art. 9º — Autorização do Bacen</span></div></div>
+          <div class="detail-section"><div class="detail-label">Pitch Comercial</div><div class="pitch-box"><strong>Argumento:</strong> "O Art. 7º equipara obrigações PLD das SPSAVs às de bancos. As Res. 519, 520 e 521 de nov/2025 detalharam o que isso significa na prática — e o prazo começa a correr agora."</div></div>
+          <div class="detail-section"><div class="detail-label">Penalidade</div><span class="penalidade-badge">⚠ Cassação da autorização + Lei 9.613/98</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ BETS ═══ -->
+  <div class="segment" data-seg="bet">
+    <div class="segment-header">
+      <div class="segment-icon">🎲</div>
+      <div><div class="segment-title">Bets — Apostas de Quota Fixa</div><div class="segment-desc">Operadoras de apostas esportivas e jogos online — reguladas pelo MF/SPA e Bacen</div></div>
+    </div>
+    <div class="cards-grid">
+
+      <div class="norm-card type-pld" onclick="toggleCard(this)">
+        <div class="card-top"><div class="card-badges"><span class="norm-label l-pld">PLD/CFT</span></div><span class="expand-icon">+</span></div>
+        <div class="norm-name">Lei nº 14.790/2023</div>
+        <div class="norm-source">Federal · Marco Legal das Apostas Esportivas</div>
+        <div class="norm-summary">Legaliza apostas de quota fixa e impõe obrigações PLD às operadoras — monitoramento de clientes e reporte ao COAF.</div>
+        <div class="card-details">
+          <div class="detail-section"><div class="detail-label">Artigos-gancho</div><div class="artigos-list"><span class="artigo-tag">Art. 29 — Obrigações PLD das Bets</span><span class="artigo-tag">Art. 30 — KYC de apostadores</span><span class="artigo-tag">Art. 31 — Monitoramento de operações</span><span class="artigo-tag">Art. 32 — Comunicação ao COAF</span><span class="artigo-tag">Art. 33 — Vedação a apostadores PEPs</span></div></div>
+          <div class="detail-section"><div class="detail-label">Pitch Comercial</div><div class="pitch-box"><strong>Argumento:</strong> "O Art. 29 torna as Bets obrigadas perante a Lei 9.613/98 — as mesmas exigências PLD de um banco. O Art. 31 exige monitoramento de operações suspeitas: nossa plataforma está desenhada especificamente para o perfil de risco do setor."</div></div>
+          <div class="detail-section"><div class="detail-label">Penalidade</div><span class="penalidade-badge">⚠ Cassação da licença + multa até R$2 bilhões</span></div>
+        </div>
+      </div>
+
+      <div class="norm-card type-fraud" onclick="toggleCard(this)">
+        <div class="card-top"><div class="card-badges"><span class="norm-label l-fraud">Antifraude</span></div><span class="expand-icon">+</span></div>
+        <div class="norm-name">Portaria MF nº 1.330/2023</div>
+        <div class="norm-source">Min. Fazenda / SPA · Requisitos para Licença de Bets</div>
+        <div class="norm-summary">Controles antifraude, verificação biométrica e integridade de pagamentos como condições para obtenção de licença operacional.</div>
+        <div class="card-details">
+          <div class="detail-section"><div class="detail-label">Artigos-gancho</div><div class="artigos-list"><span class="artigo-tag">Art. 15 — Verificação biométrica</span><span class="artigo-tag">Art. 18 — Controles antifraude em pagamentos</span><span class="artigo-tag">Art. 22 — Limites por CPF</span><span class="artigo-tag">Art. 25 — Proibição de contas laranjas</span></div></div>
+          <div class="detail-section"><div class="detail-label">Pitch Comercial</div><div class="pitch-box"><strong>Argumento:</strong> "A Portaria 1.330 exige verificação biométrica (Art. 15) e controles antifraude em pagamentos (Art. 18) como condição para licença. Nossa solução cobre ambos e gera evidências de conformidade prontas para a SPA."</div></div>
+        </div>
+      </div>
+
+      <div class="norm-card type-pld" onclick="toggleCard(this)">
+        <div class="card-top"><div class="card-badges"><span class="norm-label l-pld">PLD/CFT</span></div><span class="expand-icon">+</span></div>
+        <div class="norm-name">Resolução COAF nº 36/2021 — Jogos</div>
+        <div class="norm-source">COAF · Setor de Apostas como Obrigado PLD</div>
+        <div class="norm-summary">12 sinais de alerta específicos para o setor de jogos: depósitos fracionados, apostas compensatórias, contas laranja, saques atípicos.</div>
+        <div class="card-details">
+          <div class="detail-section"><div class="detail-label">Artigos-gancho</div><div class="artigos-list"><span class="artigo-tag">Art. 3º — Obrigatoriedade PLD para jogos</span><span class="artigo-tag">Anexo I — 12 sinais de alerta setoriais</span><span class="artigo-tag">Art. 8º — Prazo 24h para operações suspeitas</span></div></div>
+          <div class="detail-section"><div class="detail-label">Pitch Comercial</div><div class="pitch-box"><strong>Argumento:</strong> "O Anexo I da Res. COAF 36 lista 12 sinais de alerta específicos para jogos. Nosso modelo de detecção é pré-treinado para esses padrões setoriais — reduzindo tempo de configuração e risco de falsos negativos."</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ TRANSVERSAIS ═══ -->
+  <div class="segment" data-seg="all">
+    <div class="segment-header">
+      <div class="segment-icon" style="font-size:20px">⚖️</div>
+      <div><div class="segment-title">Normas Transversais — Todos os Segmentos</div><div class="segment-desc">Aplicáveis a todos os modelos de negócio acima</div></div>
+    </div>
+    <div class="cards-grid">
+
+      <div class="norm-card type-pld" onclick="toggleCard(this)">
+        <div class="card-top"><div class="card-badges"><span class="norm-label l-pld">PLD/CFT</span></div><span class="expand-icon">+</span></div>
+        <div class="norm-name">Lei nº 9.613/1998 (alt. Lei 12.683/2012)</div>
+        <div class="norm-source">Federal · Lei de Lavagem de Dinheiro</div>
+        <div class="norm-summary">Lei mãe do PLD. Define crimes de lavagem, responsabiliza pessoas físicas e jurídicas e estabelece obrigações dos setores obrigados.</div>
+        <div class="card-details">
+          <div class="detail-section"><div class="detail-label">Artigos-gancho</div><div class="artigos-list"><span class="artigo-tag">Art. 1º — Crime de lavagem</span><span class="artigo-tag">Art. 9º — Setores obrigados</span><span class="artigo-tag">Art. 10 — Dever de identificar clientes</span><span class="artigo-tag">Art. 11 — Dever de comunicar ao COAF</span><span class="artigo-tag">Art. 12 — Penalidades administrativas</span></div></div>
+          <div class="detail-section"><div class="detail-label">Pitch Comercial</div><div class="pitch-box"><strong>Argumento:</strong> "O Art. 12 prevê multa de até R$20 milhões e o Art. 11 impõe comunicação proativa ao COAF — não é opcional. Nossa solução automatiza esse processo, eliminando o risco de omissão que gera responsabilidade penal para administradores."</div></div>
+          <div class="detail-section"><div class="detail-label">Penalidade</div><span class="penalidade-badge">⚠ Reclusão 3–10 anos + multa até R$20mi</span></div>
+        </div>
+      </div>
+
+      <div class="norm-card type-fraud" onclick="toggleCard(this)">
+        <div class="card-top"><div class="card-badges"><span class="norm-label l-fraud">Antifraude</span></div><span class="expand-icon">+</span></div>
+        <div class="norm-name">Lei nº 14.155/2021</div>
+        <div class="norm-source">Federal · Lei do Estelionato Digital</div>
+        <div class="norm-summary">Agrava penas de fraudes eletrônicas e cria exposição civil para instituições que não adotam medidas preventivas ativas e documentadas.</div>
+        <div class="card-details">
+          <div class="detail-section"><div class="detail-label">Artigos-gancho</div><div class="artigos-list"><span class="artigo-tag">Art. 1º — Estelionato eletrônico agravado</span><span class="artigo-tag">Art. 2º — Fraude bancária eletrônica</span><span class="artigo-tag">Art. 3º — Invasão de dispositivo</span></div></div>
+          <div class="detail-section"><div class="detail-label">Pitch Comercial</div><div class="pitch-box"><strong>Argumento:</strong> "A Lei 14.155 aumentou a exposição civil de instituições sem medidas preventivas documentadas. Nossa plataforma gera evidências de due diligence antifraude que protegem sua empresa em disputas judiciais e regulatórias."</div></div>
+          <div class="detail-section"><div class="detail-label">Penalidade</div><span class="penalidade-badge">⚠ Reclusão 4–8 anos + indenização civil</span></div>
+        </div>
+      </div>
+
+      <div class="norm-card type-both" onclick="toggleCard(this)">
+        <div class="card-top"><div class="card-badges"><span class="norm-label l-fraud">Antifraude</span><span class="norm-label l-pld">PLD</span></div><span class="expand-icon">+</span></div>
+        <div class="norm-name">LGPD — Lei nº 13.709/2018</div>
+        <div class="norm-source">Federal · Proteção de Dados Pessoais</div>
+        <div class="norm-summary">Regula o tratamento dos dados coletados em KYC e monitoramento. Privacy-by-design é requisito transversal a todos os controles de compliance.</div>
+        <div class="card-details">
+          <div class="detail-section"><div class="detail-label">Artigos-gancho</div><div class="artigos-list"><span class="artigo-tag">Art. 7º — Bases legais para KYC</span><span class="artigo-tag">Art. 11 — Dados sensíveis biométricos</span><span class="artigo-tag">Art. 46 — Medidas de segurança</span><span class="artigo-tag">Art. 52 — Multa ANPD</span></div></div>
+          <div class="detail-section"><div class="detail-label">Pitch Comercial</div><div class="pitch-box"><strong>Argumento:</strong> "KYC e monitoramento coletam dados sensíveis. Nossa solução foi desenvolvida com privacy-by-design: dados minimizados, retenção controlada e logs de acesso — cumprindo o Art. 46 da LGPD e blindando sua empresa de autuações da ANPD."</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <span>Mapeamento regulatório · Atualizado: novembro–dezembro 2025 · Escopo: Brasil</span>
+    <span>⚠ Recomenda-se validação com equipe jurídica antes do uso comercial</span>
+  </footer>
+
+</div><!-- /container -->
+
+<!-- TOAST -->
+<div class="toast" id="toast">✓ Link copiado!</div>
+
+<script>
+  // Card toggle
+  function toggleCard(card) {
+    const wasExpanded = card.classList.contains('expanded');
+    document.querySelectorAll('.norm-card.expanded').forEach(c => c.classList.remove('expanded'));
+    if (!wasExpanded) card.classList.add('expanded');
+  }
+
+  // Filters
+  function filterAll(btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.segment, .norm-card, .section-divider').forEach(el => el.classList.remove('hidden'));
+  }
+  function filterSeg(seg, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.segment').forEach(s => {
+      s.classList.toggle('hidden', s.dataset.seg !== seg && s.dataset.seg !== 'all');
+    });
+    document.querySelectorAll('.norm-card').forEach(c => c.classList.remove('hidden'));
+  }
+  function filterType(type, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.segment, .section-divider').forEach(el => el.classList.remove('hidden'));
+    document.querySelectorAll('.norm-card').forEach(c => {
+      c.classList.toggle('hidden', !c.classList.contains('type-' + type) && !c.classList.contains('type-both'));
+    });
+  }
+
+  // Copy link
+  function copyLink() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url)
+      .then(() => showToast('✓ Link copiado!'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = url; document.body.appendChild(el);
+        el.select(); document.execCommand('copy');
+        document.body.removeChild(el);
+        showToast('✓ Link copiado!');
+      });
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  // Detect iframe (Notion embed) → show tip
+  try {
+    if (window.self !== window.top) {
+      const tip = document.getElementById('notionTip');
+      if (tip) tip.style.display = 'flex';
+    }
+  } catch(e) {}
+</script>
+</body>
+</html>
